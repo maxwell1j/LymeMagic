@@ -555,8 +555,10 @@ function moveMagic() {
                 }
     //Move to map if the closeAlert is not already going off. Stops being moved back to map when user has moved off
     if(alerted == true && alertClose == false){
+                                            console.log("Magic is close I smell it");
                                             alertClose = true; 
-                                            messageNotify ("I smell that magic is close","audiomagicClose");
+                                            messageModal(messageId,"Magic is close, look close to see it","I smell magic");
+                                            //messageNotify ("I smell that magic is close","audiomagicClose");
                                             document.getElementById('aPlay').click(); //Show Map
                                             }
     if(alerted == false ){alertClose == false;}

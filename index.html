@@ -1,0 +1,627 @@
+<!doctype html>
+<!--
+	Template Used:	 Unika - Responsive One Page HTML5 Template by imransdesign.com
+    Web Page Created by: John Maxwell 2016
+    Description: Single Page App Site, Bootstrap Template using Google Maps APIs to create interactive GPS Game. 
+
+    To Do:
+    Use Menu Header as title for section
+    Menu Items Change: Walk Route, Play, Instructions, Settings, Score, About
+    Sprite Objects Extra Properties:
+    Use Sprite Sheets
+    Icons on buttons
+    Menu Change on Game Play
+    Submit Form
+    Online Indicator
+    
+    
+    
+
+    
+-->
+<html manifest="cache.manifest" lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Lyme Park Walk</title>
+		<meta name="description" content="Lyme Park. Treasure Hunt makes it fun for the kids.">
+		<meta name="keywords" content="Lyme Park, Walk. Kids. Treasure Hunt." />
+		<meta name="author" content="john maxwell">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Google Fonts  -->
+		<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css'> <!-- Body font -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'> <!-- Navbar font -->
+
+		<!-- Libs and Plugins CSS -->
+		<link rel="stylesheet" href="inc/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="inc/animations/css/animate.min.css">
+		<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css"> <!-- Font Icons -->
+		<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
+		<link rel="stylesheet" href="inc/owl-carousel/css/owl.theme.css">
+
+		<!-- Theme CSS -->
+        <link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/mobile.css">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="css/skin/cool-gray.css">
+       
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+        
+        
+         <style>
+                                                 video {
+                                                    position: relative;
+                                                     min-width: 50%;
+                                                    min-height: 50%;
+                                                    height:  inherit;
+                                                    z-index: -100;
+                                                      /*   filter: blur(30px);*/
+                                                        filter: sepia(100%);
+
+                                                    }
+
+                                            .tv {
+                                                height: 50%;
+                                                width: 50%;
+                                                    border: 3px solid black;
+                                                 padding: 50px 30px 50px 30px;
+                                            }
+
+                                             .gameEgg{
+                                                  position: absolute;
+                                                       opacity: 0.5;
+                                                 left: 50px;
+                                                top: 10px;
+                                                  width: 100px;
+                                              height: 100px; 
+                                                z-index: 100;
+                                                    }
+                                             </style>
+        
+        
+        
+        
+        
+	</head>
+
+<body  onload="loadMap()" data-spy="scroll" data-target="#main-navbar">    
+                
+  
+<script>
+    
+//Google Analytics
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-75185226-6', 'auto');
+  ga('send', 'pageview');
+</script>    
+    
+   
+
+    
+ <div class="page-loader"></div>  <!-- Display loading image while page loads -->
+    	
+    <div class="body">
+        
+
+            <!--========== BEGIN HEADER ==========-->
+            <header id="header" class="header-main" >   
+               
+                <!-- Begin Navbar -->
+                <nav id="main-navbar" class="navbar   navbar-fixed-top navbar-transparent" role="navigation" > <!-- Classes: navbar-default, navbar-inverse, navbar-fixed-top, navbar-fixed-bottom, navbar-transparent . Note: If you use non-transparent navbar, set "height: 98px;" to #header -->
+
+                  <div class="container">
+ 
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                       
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                  <!--    <a class="navbar-brand page-scroll" href="#text-carousel-intro-section">Virtual Treasure Hunt</a>-->
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a id="aHome" class="page-scroll" href="#text-carousel-intro-section">Home</a></li>
+                            <li><a id ="aTrail" class="page-scroll" href="#route"  >Route</a></li>
+                            <li><a id="aPlay" class="page-scroll" href="#play" >Play</a></li>
+                            <li><a id="aStory" class="page-scroll" href="#instructions" >Instructions</a></li> 
+                            <li><a id="aScore" class="page-scroll" href="#settings" >Settings</a></li>
+                            <li><a id="aYou" class="page-scroll" href="#score" >Score</a></li>
+                           <!-- <li><a id="aAbout" class="page-scroll" href="#about" >About</a></li> -->    
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container -->
+                </nav>
+                <!-- End Navbar -->
+
+            </header>
+            <!-- ========= END HEADER =========-->
+            
+            
+        	<!-- Begin text carousel intro section -->
+			<section id="text-carousel-intro-section" class="parallax" data-stellar-background-ratio="0.5" style="background-image: url(img/backgroundLyme2.jpg);">
+                
+            	<div  class="container">
+					<div class="caption text-center text-white" data-stellar-ratio="0.7">
+                        <div id="owl-intro-text" class="owl-carousel">
+							<div class="item">
+                               <h1>Lyme Park Trail</h1>
+								<p>A 6K family friendly walk around Lyme Park</p>
+                                <div class="extra-space-l"></div>
+								<!--<a class="page-scroll" href="#home" >Home</a>-->
+                               <a id="abReadStory" class="btn btn-blank" href="#route" target="_blank" role="button" >View  Route</a>
+                                <p></p><br>
+                                <a id="abViewRoute" class="btn btn-blank" href="#play" target="_blank" role="button"  >Play   Game</a>
+                                <p></p><br>
+                                <a id="abViewMap" class="btn btn-blank" href="#instructions" target="_blank" role="button"   > Instructions</a>
+							</div>
+                            <div class="item">
+                              	<h1>Treasure Hunt</h1>
+								<p>Play Game, Walk the trail and find magic icons to earn points</p>
+								<div class="extra-space-l"></div>
+								<a id="abReadStory" class="btn btn-blank" href="#route" target="_blank" role="button" >View  Route</a>
+                                <p></p><br>
+                                <a id="abViewRoute" class="btn btn-blank" href="#play" target="_blank" role="button"  >Play   Game</a>
+                                <p></p><br>
+                                <a id="abViewMap" class="btn btn-blank" href="#instructions" target="_blank" role="button"   > Instructions</a></div>
+                            <div class="item">
+                               	<h1>Instructions</h1>
+								<p>Follow the route and collect the magic icons you see on your phone</p>
+								<div class="extra-space-l"></div>
+								<a id="abReadStory" class="btn btn-blank" href="#route" target="_blank" role="button" >View  Route</a>
+                                <p></p><br>
+                                <a id="abViewRoute" class="btn btn-blank" href="#play" target="_blank" role="button"  >Play   Game</a>
+                                <p></p><br>
+                                <a id="abViewMap" class="btn btn-blank" href="#instructions" target="_blank" role="button"   > Instructions</a></div></div></div><!-- /.caption -->
+				</div><!-- /.container -->
+        </section> 
+      <!-- End text carousel intro section -->
+    <!-- Begin map section -->
+        <div id="play" style="display:none; height:100%"  >
+			                <!-- Begin page header-->
+                
+                           <div id="googleMapHere"  class="extra-space-page" >
+                              <div height="600px"></div>
+                            Lyme Park Map loading. If this message remains, ensure location services swithced on and refresh page</div>
+                 <div id="floatingMenu" draggable="true">
+                     <a class="page-scroll buttonIcon imgHome redBackIcon" href="#text-carousel-intro-section" target="_blank" ></a>
+                    <a class="page-scroll buttonIcon imgRoute redBackIcon" href="#route" target="_blank" ></a>
+                </div>
+            <div id="floatingScore" draggable="true"></div>
+                            <!-- End page header-->
+        </div>
+          <!-- End Map Section-->
+ <!-- Begin Route -->
+        <div id="route"  style="display:none; height:100%">
+             <!--floating menu-->
+            <div id="floatingMenu" draggable="true">
+                <a class="page-scroll buttonIcon imgHome redBackIcon" href="#text-carousel-intro-section" target="_blank" ></a>
+                <a class="page-scroll buttonIcon imgZoom redBackIcon" href="#play" target="_blank" ></a>
+                    <a class="buttonIcon imgHere" onclick='showIHereTrail()'></a>
+                    <a class="buttonIcon imgCar" onclick='showStartTrail()'></a>
+                    <a class="buttonIcon imgText" onclick="messageModal ('#myModal',textRoute,'Lyme Park Walk Directions')"></a>
+                   <!-- <a class="buttonIcon imgPeople"></a> -->
+                    <a class="buttonIcon imgGoogleMaps" onclick="urlCreation('googleDirectionStart')"></a>
+             </div>
+              <div  id="googleMapTrail"  class="extra-space-page" >Walking Route Map loading. Ensure Location is enabled</div>
+             </div>
+                <!-- End Route-->
+                <!-- Begin Story-->
+        <div id="instructions" style="display:none">
+            <section  class="page">
+                <!-- Begin page header-->
+                <div class="page-header-wrapper">
+                    <div class="container">
+                        <div class="page-header text-center" >
+                            <div class="extra-space-l"></div>
+                            <div class="extra-space-l"></div>
+                            <h2>Lyme Park Magic</h2>
+                            <div class="devider"></div>
+                            <p>Simply Follow the trail.</p>
+                            <br>
+                            <p>Your Phones GPS will track your journey around the trail</p>
+                            <br>
+                            <p>Click the magnifing glass to zoom in so you can see the magic icons</p>
+                            <br>
+                            <p>Just walk into the icons and you will earn points</p>
+                            <div class="extra-space-l"></div>
+                            <div >
+                                <a class="page-scroll buttonIcon imgHome redBackIcon" href="#text-carousel-intro-section" target="_blank" ></a>
+               
+                                </div>
+                       </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+                <!-- End page header-->      <!-- End Story-->
+                
+                     
+            <!-- Begin Score -->
+        <div id="score" style="display:none">
+            <section  class="page bg-style1">
+            	<div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portfolio">
+                                <!-- Begin page header-->
+                                <div class="page-header-wrapper">
+                                    <div class="container">
+                                        <div class="page-header text-center">
+                                            <div class="extra-space-l"></div>
+                                            <div class="extra-space-l"></div>
+                                            <h2>Collect The Magic</h2>
+                                            <div class="devider"></div>
+                                            <div class="extra-space-l"></div>
+                                            <p id = "magicScore" class="subtitle">You have to earn magic points</p>
+                                            <p id = "magicLevel" class="subtitle">You're magic level is under review</p>
+                                            <p id = "magicCert" class="subtitle">This means you are a certified apprentice</p>
+                                           </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!--Subsection Start Camera Test-->
+                
+                
+                                                        
+
+                                             <div class="tv">     
+                                              <video autoplay>Trying to use camera</video>
+
+
+                                                <div >
+                                                     <img id="gameImgEgg" class="gameEgg" src="img/egg.png" alt="Egg" onclick="gameClick('egg')"> 
+                                                </div>          
+                                             </div>         
+
+
+
+                                            <script>
+
+                                                 var errorCallback = function(e) {
+                                                console.log('Reeeejected!', e);
+                                              };
+
+                                              var video = document.querySelector('video');
+                                              var gameEgg = document.querySelector("#gameImgEgg");
+                                              var localMediaStream = null;
+
+                                              function gameClick(type) {
+                                                  if (type=="egg"){alert("EggClicked");}
+                                              }
+
+
+                                              // Not showing vendor prefixes or code that works cross-browser.
+                                              navigator.getUserMedia({video: true}, function(stream) {
+                                                video.src = window.URL.createObjectURL(stream);
+                                                localMediaStream = stream;
+                                              }, errorCallback);
+    
+    
+                                    </script>
+        <!--End Subsection  Camera Test-->
+        </section>
+        </div>
+        <!-- End Score -->
+            <!-- Begin You section -->
+		<div id="settings" style="display:none">
+        <section  class="page">
+
+                <!-- Begin page header-->
+                <div class="page-header-wrapper">
+                    <div class="container">
+                        <div class="page-header text-center" >
+                            <div class="extra-space-l"></div>
+                            <div class="extra-space-l"></div>
+                            <h2>Your Magical Details</h2>
+                            <div class="devider"></div>
+                            <form id="subscribe" method="POST">               	
+                  <label>Your Name:</label>    <input id = "inputName" type = "text"  placeholder="Please type your name" oninput="storeName(document.getElementById('inputName').value);"> 
+                <br><br/><br/> 
+                      <fieldset>
+                        <legend>Are you Boy or Girl Spell Caster?</legend><br/> 
+                        <input type="radio" name="gender" value="Boy"  onclick="moveMarker (markerWizard,latlngWizard,'img/wizardIcon.png');"; />Boy<br/><br/>
+                        <input type="radio" name="gender" value="Girl" onclick="moveMarker (markerWizard,latlngWizard,'img/wizardIconFemale.png');" />Girl<br/><br/>
+                     </fieldset>
+              </form> 
+                    
+                        </div>
+                    </div>
+                </div>
+               </section>
+        </div>
+			 <!-- End settings-->   
+                
+                
+                
+                
+                <!-- Begin contact section -->
+			<!--<section id="contact-section" class="page text-white parallax" data-stellar-background-ratio="0.5" style="background-image: url(img/map-bg.jpg);"> -->
+<div id="about" style="display:none">      
+<section id="contact" class="page text-white text-center" >
+            <div class="cover"></div>
+            
+                 <!-- Begin page header-->
+                <div class="page-header-wrapper">
+                    <div class="container">
+                        <div class="page-header text-center">
+                            <div class="extra-space-l"></div>
+                            <div class="extra-space-l"></div>
+                            <h1>Lyme Park Treasure Hunt</h1>
+                            <div class="devider"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End page header-->
+                
+                <div class="contact" >
+                    <div class="container">
+                    	<div class="row">
+                        <div class="col-sm-6">
+                                <div class="contact-info">
+                                    <ul class="contact-address">
+                                        <h3>&nbsp; We've turned a Lyme Park walk into a treasure hunt</h3>                                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; We enjoy walking in the lyme park area and created a virtual treasure hunt to add bit of excitement for our kids
+                                        <br>
+                                        <p> This is 5.5K walking route that we have turned into a virtual treasure hunt </p>
+                                        <p></p>
+                                        <p> You just need a phone with GPS and follow the trail</p>
+                                        <p></p>
+                                        <p>It is early days for the web site and we will be improving its usablitity. Firstly making it easier to use with limited internet connection.</p>
+                                        <p> For Easter we have introduced the Easter Bunny and made it an Easter Egg Hunt</p>
+                                        <p> We hope you use and enjoy it and would love to hear from you</p>
+                                    <br>
+                                    
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Drop us an email saying how your walk went. 
+                                <br>    
+                                <li>May be send us photos for the web site or suggestions for other trails.</li>
+                                         
+                                    <br>
+			                            <li> </li>
+                                          <i class="fa fa-envelope" style="color:blue"></i>  <a href="mailto:goytvalley@maxwellmail.net" style="color:blue">goytvalley@maxwellmail.net</a>
+			                            
+			                        </ul>
+                                </div>
+                            </div>
+                        
+                        	<div class="col-sm-6">
+                                <div class="contact-form">
+                                    <br>
+                                	<h3>Lyme Park Walk Links</h3>
+                                     <br>
+                                   
+                                </div>	
+                            </div>
+                                                                                
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+                </div>
+                
+    
+    
+    
+    
+            </section>
+        </div>
+            <!-- End contact section -->
+                
+            <!-- Audio Section-->
+               
+                            
+                      
+                  
+                            
+                <audio id="audioswoosh"  >
+                <source src="img/swoosh.mp3" />
+                </audio>
+                            
+                  
+                 <audio id="audiomagicCollision"  >
+                <source src="img/magicCollision.mp3" />
+                </audio>
+                            
+                <audio id="audiomagicEggs"  >
+                <source src="img/magicEggs.mp3" />
+                </audio>
+                            
+             <!--             
+                <audio id="audiopromotion"  >
+                <source src="img/promotion.mp3" />
+                </audio>
+                
+                <audio id="audioencourage"  >
+                <source src="img/encourage.mp3" />
+                </audio>
+                            
+                <audio id="audiomusic"  >
+                <source src="img/music.mp3" />
+                </audio>
+        
+                <audio id="audiomagicClose"  >
+                <source src="img/magicClose.mp3" />
+                </audio>
+                        
+               > 
+            <!-- End Audio Section-->    
+
+           
+                
+                
+                
+                
+
+    <div id="footer" style="display:none">
+            <!-- Begin footer -->
+            <footer class="text-off-white">
+            
+                <div class="footer-top">
+                	<div class="container">
+                    	<div class="row">
+
+                           <p>A Treasure hunt to get the kids out enjoying the fresh air. Hope you enjoy the magic of Lyme Park</p>
+                        	
+                           
+                    </div> <!-- /.container -->
+                
+                
+                <div class="footer">
+                    <div class="container text-center">
+                       <p>Site Designed by John Maxwell 2016</p>
+                    </div>
+                </div>
+
+                        
+                       
+                        
+                        
+            </footer>
+            <!-- End footer -->
+
+            <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a> <!-- Scroll to top button -->
+                                              
+        </div><!-- body ends -->
+        </footer>
+        </div>
+        
+        
+        
+        <!-- Plugins JS -->
+		<script src="inc/jquery/jquery-1.11.1.min.js"></script>
+		<script src="inc/bootstrap/js/bootstrap.min.js"></script>
+		<script src="inc/owl-carousel/js/owl.carousel.min.js"></script>
+		<script src="inc/stellar/js/jquery.stellar.min.js"></script>
+		<script src="inc/animations/js/wow.min.js"></script>
+        <script src="inc/waypoints.min.js"></script>
+		<script src="inc/isotope.pkgd.min.js"></script>
+		<script src="inc/classie.js"></script>
+		<script src="inc/jquery.easing.min.js"></script>
+		<script src="inc/jquery.counterup.min.js"></script>
+		<script src="inc/smoothscroll.js"></script>
+        <script src="inc/myJS.js"></script>
+         <!--
+                 <script src = "https://maps.googleapis.com/maps/api/js"></script>
+               
+
+
+		<!-- Theme JS -->
+
+                
+        <script src="js/theme.js"></script>
+               
+             
+ <script type="text/javascript">
+
+     
+    //modal close
+
+     
+     //Google Analytics fn onclicks   
+$(document).ready(function () {
+	$('.page-scroll, .btn').click(function(){
+		var match = jQuery(this).attr('href');
+        if (match == undefined){return;} //avoids error when modals are open
+        match = match.match(/#\S+/);
+		ga('send', 'pageview', location.pathname + match[0]);
+        console.log(location.pathname + match[0]);
+        
+    //Push history 
+            var $this = $(this),
+                url = $this.attr("href"),
+                title = $this.text();
+
+            history.pushState({
+                url: url,
+                title: title
+            }, title, url);
+
+     //Change Page   
+        
+        showElement ( match[0].substr(1));
+	});
+});
+     
+
+window.onhashchange = function() {
+ console.log("hashchange");
+    var myPage = window.location.hash.substr(1);
+    console.log(myPage);
+    if (myPage == "" ) {myPage="text-carousel-intro-section"}
+     showElement(myPage);
+};
+     
+
+     
+     
+</script>
+
+                
+                
+                
+                </body> 
+        
+      <!---Modal Section Start-->
+<div id="myModal" class="modal fade" role="dialog">
+ 
+ <div class="vertical-alignment-helper">
+        <div class="modal-dialog ">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" >Lyme Park Family Walk</h4>
+      </div>
+      <div class="modal-body">
+        <p>Details of walking route in Lyme Park</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="bdtn btn-default" data-dismiss="modal" align="left">Close</button>
+      </div>
+    </div>           
+     </div>
+    </div>
+    </div>
+    
+            
+            
+            
+<div id="myModalSettings" class="modal fade" role="dialog">
+ <div class="vertical-alignment-helper">
+        <div class="modal-dialog ">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" onclick="if(sessionStorage.userName == undefined){window.history.back();}">&times;</button>
+        <h4 class="modal-title" >Just need your details before we start</h4>
+      </div>
+      <div class="modal-body">
+        <form id="subscribe" method="POST">               	
+                  <label>Your Name:</label>    
+            <input id = "inputName" type = "text"  placeholder="Please type your name" oninput="storeName(document.getElementById('inputName').value);"> 
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" align="left" onclick="if(sessionStorage.userName == undefined){ window.history.back();}">Close</button>
+      </div>
+    </div>     
+     </div>
+    </div>
+            </div>  
+      <!---Modal Section End-->
+    </body>    
+            
+</html>

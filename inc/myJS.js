@@ -307,7 +307,7 @@ function moveWizard (position)
         addPoints(distanceScore);
        latlngWizard = newLatLng;
        gpsAttempts = 0
-       if (session.userName != undefined){ moveMarker(markerWizard,latlngWizard);}
+       if (sessionStorage.userName != undefined){ moveMarker(markerWizard,latlngWizard);}
        moveMarker(markerWizardTrail,latlngWizard);
        offLineCheck();//Set Map type to local tiles if offline
        mapHere.panTo(latlngWizard); //to be moved to the moveMarker function with option
